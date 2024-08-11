@@ -1,4 +1,4 @@
-package com.nsilva.project.domain.entities;
+package com.nsilva.project.entities;
 
 import java.io.Serial;
 import java.io.Serializable;

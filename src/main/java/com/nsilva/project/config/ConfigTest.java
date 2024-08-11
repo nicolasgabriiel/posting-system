@@ -1,5 +1,6 @@
 package com.nsilva.project.config;
 
+import com.nsilva.project.dto.AuthorDTO;
 import com.nsilva.project.entities.Post;
 import com.nsilva.project.entities.User;
 import com.nsilva.project.repository.PostRepository;
@@ -20,7 +21,7 @@ public class ConfigTest implements CommandLineRunner {
     private UserRepository userReposiroty;
 
     @Autowired
-    private PostRepository postReposiroty;
+    private PostRepository postRepository;
 
     @Override
     public void run(String... arg0) throws Exception {
@@ -29,16 +30,17 @@ public class ConfigTest implements CommandLineRunner {
 
 
         userReposiroty.deleteAll();
+        postRepository.deleteAll();
 
         User maria = new User(null, "Maria Brown", "maria@gmail.com");
         User alex = new User(null, "Alex Green", "alex@gmail.com");
         User bob = new User(null, "Bob Grey", "bob@gmail.com");
 
-        Post post1 = new Post(null, LocalDateTime.parse("21/03/2024 22:12:46", sdf), "Partiu viagem", "Vou viajar para São Paulo. Abraços!", maria);
-        Post post2 = new Post(null, LocalDateTime.parse("23/03/2014 13:31:55", sdf), "Bom dia", "Acordei feliz hoje!", maria);
+
+        Post post1 = new Post(null, LocalDateTime.parse("21/03/2024 22:12:46", sdf), "Partiu viagem", "Vou viajar para São Paulo. Abraços!", new AuthorDTO(maria) );
+        Post post2 = new Post(null, LocalDateTime.parse("23/03/2014 13:31:55", sdf), "Bom dia", "Acordei feliz hoje!", new AuthorDTO(maria) );;
 
         userReposiroty.saveAll(Arrays.asList(maria, alex, bob));
-
-        postReposiroty.saveAll(Arrays.asList(post1, post2));
+        postRepository.saveAll(Arrays.asList(post1, post2));
     }
 }

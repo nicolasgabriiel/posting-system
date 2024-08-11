@@ -1,5 +1,6 @@
 package com.nsilva.project.resources;
 
+import com.nsilva.project.dto.UserDTO;
 import com.nsilva.project.entities.User;
 import com.nsilva.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,9 @@ public class UserResource {
     private UserService service;
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll() {
+    public ResponseEntity<List<UserDTO>> findAll() {
         List<User> list = service.findAll();
-        return ResponseEntity.ok().body(list);
+        List<UserDTO> listDto = list.stream().map(UserDTO::new).toList();
+        return ResponseEntity.ok().body(listDto);
     }
 }

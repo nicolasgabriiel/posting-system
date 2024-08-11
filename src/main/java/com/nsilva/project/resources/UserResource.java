@@ -1,6 +1,7 @@
 package com.nsilva.project.resources;
 
 import com.nsilva.project.dto.UserDTO;
+import com.nsilva.project.entities.Post;
 import com.nsilva.project.entities.User;
 import com.nsilva.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,10 @@ public class UserResource {
         obj.setId(id);
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
+    }
+    @RequestMapping(value="/{id}/posts", method=RequestMethod.GET)
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 }
